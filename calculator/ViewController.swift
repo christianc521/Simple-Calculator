@@ -9,11 +9,34 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    var numbers = [""]
+    var numberIndex = 0
     var total = 0
+
     @IBOutlet weak var sum: UILabel!
     @IBAction func buttonPressed(_ sender: UIButton) {
-        if (sender.tag >= 1 || sender.tag <= 9) {
-            sum.text = "\(sender.tag)"
+        
+        // any digit pressed
+        if (sender.tag >= 0 && sender.tag <= 9) {
+            numbers[numberIndex] += "\(sender.tag)"
+            sum.text = numbers[numberIndex]
+        }
+        
+        // + pressed
+        else if (sender.tag == 10) {
+            total += Int(numbers[numberIndex])!
+            numberIndex += 1
+            numbers.append("")
+            
+        }
+        
+        // = pressed
+        else if (sender.tag == 11) {
+            total += Int(numbers[numberIndex])!
+            numberIndex += 1
+            numbers.append("0")
+            sum.text = String(total)
         }
     }
     override func viewDidLoad() {
